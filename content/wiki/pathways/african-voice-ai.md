@@ -1,172 +1,178 @@
 ---
 type: Pathway
-title: African Voice AI — Offline-First Voice for Kenya
-description: Adapting an India-built voice-AI stack (Voicera Africa) for offline-first agricultural advisory in Kenya — porting orchestration across geography, and the code-switching, telephony, and governance work that porting alone doesn't solve.
+title: African Voice AI Pathway — Kenya
+description: Adapting an India-built voice-AI stack (VoicERA/Pipecat) into Voicera Africa, a Kiswahili-speaking voice SDK for smallholder farmers and field agents — what porting an orchestration layer across geography actually saves, and the code-switching, telephony, institutional, and governance work it doesn't.
 tags: [Voice AI, Agriculture, Africa]
 sector: Agriculture
-stage: Pilot
-timestamp: 2026-08-31
+stage: Define
+timestamp: 2026-09-02
 contributor: Crane AI Labs / UNDP AI Hub for Sustainable Development
 ---
 
 # 0. Reading Guide
 
-This is a point-in-time record of a still-forming pathway, not a finished case study. It draws on a working-group call transcript between the People+AI 100 Pathways team, the UNDP AI Hub team, and the Kenya delivery consultants; a technical and cost architecture document for the Voicera Africa platform (dated 11 August 2026); and an AI policy and data governance contribution prepared by Mildred Rebecca Namagembe. The contributing team's own structured metadata document marks several fields as still needing verification from named team members — those are carried through here as "not documented in the source" rather than filled in, per the source's own explicit instruction not to soften or invent them.
+This is a point-in-time record of a still-forming pathway, not a finished case study or an endorsement of any product — the source document holds itself to one test: would the next team adapting a voice-AI stack to a new African-language deployment start from a higher baseline having read it. It draws on a working-group call transcript between the People+AI 100 Pathways team, the UNDP AI Hub team, and the Kenya delivery consultants; the Voicera Africa technical and cost architecture document (dated 11 August 2026); an AI policy and data governance contribution prepared for this pathway by Mildred Rebecca Namagembe; and the CINECA fine-tuning pipeline documentation for the shared HPC allocation. Every claim below traces to one of those sources — where the material doesn't yet answer a question the next adopter would ask, that's recorded honestly in Gaps rather than filled in.
 
-This deployment sits at the Define-to-Pilot transition: the core platform is technically complete end-to-end, governance is being sequenced ahead of any real target-user collection, and a pilot was targeted for Kisumu in September 2026. Reusable value concentrates in Section 3 (Solution and Ecosystem units, the strongest-documented dimensions here) and Section 4. Where this document is thin — Institution at Define, and anything at Scale — that thinness is itself information: this pathway has not reached those stages yet.
+The source document rates its own stage explicitly: **Explore-to-Define**, not further along. The core platform is technically complete end-to-end, but no partner data-sharing position is settled, governance instruments are still in draft, and no pilot date is confirmed — this pathway is establishing what works, not validating a settled approach. Reusable value concentrates in Section 3's Solution and Ecosystem units (the strongest-documented territory) and in Section 4's toolkit table. Nothing here has yet been tested against a real farmer's voice — every technical and cost figure describes a system built and measured internally, ahead of live use.
 
 # 1. Pathway Identity
 
 | Field | Value |
 |---|---|
-| Deployment name | Voicera Africa — offline-first voice for low-connectivity, low-resource-language contexts |
-| Sector | Agriculture (primary); health (adjacent, informing the offline-deployment approach via a related Uganda effort) |
-| Geography | Kenya (active pilot, Kisumu); Uganda (offline-deployment device-compatibility learnings only) |
-| Population served | Agricultural agents and smallholder farmers — Kiswahili speakers who may not own a smartphone; served directly by voice, or via a field agent relaying on their behalf depending on the partner startup's own workflow |
-| Stage reached | Pilot (per the contributing team's own coverage assessment) — core platform, web voice channel, and streaming telephony channel are built; the turn-based telephony channel live in Kenya today is functional but feature-limited (no tool calling, no barge-in); no real farmer has yet used the service |
-| Contributing organisation(s) | Crane AI Labs (programme lead — deliverables, approvals, orchestration adaptation); UNDP AI Hub for Sustainable Development (cooperation structure, under the Italy–India–Kenya trilateral); MsingiAI (Sauti ASR/TTS model ownership); Hello Tractor (reference deployment partner); CINECA (Leonardo HPC allocation, Italy) |
-| Key dates | Trilateral Letter of Strategic Intent signed 19 February 2026; technical/cost architecture document dated 11 August 2026; pilot targeted for Kisumu, beginning/mid-September 2026 |
-| Summary | An India-built voice-orchestration stack (VoicERA/Pipecat) adapted into "Voicera Africa" / the African Voice AI SDK for Kiswahili-speaking smallholder farmers in Kenya, delivered as an SDK partner startups integrate into their own field-agent workflows rather than as a standalone product. |
-| Scale/impact achieved (as of 11 Aug 2026) | Not yet deployed to real farmers. Core platform, web channel, and streaming telephony channel complete; turn-based telephony channel (live in Kenya today) functional but feature-limited. Measured latency (7 Aug 2026, web channel, warm containers, 9 samples): median 1.84s to first audio; TTS synthesis ≈ two-thirds of a 6.28s turn. |
+| Deployment name | Voicera Africa (African Voice SDK) — a Kiswahili-speaking conversational voice AI agent, delivered as an SDK partner startups integrate into their own platforms, not a standalone product |
+| Sector | Agriculture — smallholder farmer access to tractor availability, indicative pricing, and service requests |
+| Geography | Kenya — pilot targeted with one Hello Tractor agency in Kisumu, beginning/mid-September 2026 |
+| Population served | Smallholder farmers who cannot access services in English and may not own a smartphone — served either directly by voice, or via a field agent relaying to and from a hub manager, depending on which partner startup's workflow the SDK is integrated into |
+| Stage reached | Explore-to-Define, by the source document's own explicit self-assessment — core platform, web voice channel, and streaming telephony channel are built; the turn-based telephony channel live in Kenya today is functional but feature-limited (no tool calling or retrieval, no barge-in); no real farmer has yet used the service |
+| Contributing organisation(s) | Crane AI Labs (implementing partner — programme deliverables, approvals, and orchestration adaptation); UNDP AI Hub for Sustainable Development (cooperation structure, under the Italy–India–Kenya trilateral framework); MsingiAI (Sauti ASR/TTS model ownership); Hello Tractor (reference deployment partner); CINECA (Leonardo HPC allocation, Italy) |
+| Key dates | Letter of Strategic Intent signed 19 February 2026 (AI Impact Summit, New Delhi); technical/cost architecture document dated 11 August 2026; latency and TTS cold-start figures measured 7 August 2026; pathway document dated 17 August 2026; pilot targeted for Kisumu, beginning/mid-September 2026 |
+| Summary | An India-built voice-orchestration stack (VoicERA/Pipecat), developed under the same trilateral partnership, adapted into Voicera Africa for Kiswahili-speaking smallholder farmers in Kenya — delivered as a feature-add SDK partner startups like Hello Tractor integrate into their own field-agent workflows, with code-switching, telephony, and governance treated as a distinct, separately-budgeted second phase of work. |
+| Scale/impact achieved (as of 17 Aug 2026) | Not yet deployed to real farmers. Core platform, web channel, and streaming telephony channel complete; turn-based telephony channel (the one live in Kenya today) functional but feature-limited. Measured latency (7 Aug 2026, web channel, warm containers, 9 samples): median 1.84s to first audio; TTS synthesis ≈ two-thirds of a 6.28s turn. Producing the current Sauti ASR/TTS models consumed roughly 1,000 GPU-hours of the programme's shared compute allocation. |
 
 # 2. Effort Details
 
-**Cost anchor (as of 11 Aug 2026).** Three distinct cost shapes rather than one figure: a fixed monthly floor (always-on backend, dashboard, voice server, MongoDB Atlas — currently the dominant cost); per-call telephony minutes; and a per-turn cost of roughly 1,970 input tokens at minimum (rising to ~2,900 with conversation history) plus self-hosted GPU seconds for ASR/TTS. No dollar rate card is given in the source, deliberately — token counts and GPU-time shapes are treated as the durable figures. Training compute is a separate, fourth cost this deployment does not itself pay: model fine-tuning runs on the programme's CINECA Leonardo HPC allocation, free at point of use. Producing the current Sauti ASR/TTS models consumed roughly 1,000 GPU-hours of that allocation.
+**Cost anchor (as of 11 Aug 2026).** Three distinct cost shapes, deliberately kept separate rather than collapsed into one figure: a fixed monthly floor (always-on backend, dashboard, voice server, MongoDB Atlas) — currently the dominant cost, independent of call volume; per-call telephony minutes, billed by the provider, scaling with conversation length; and a per-turn cost of roughly 1,970 input tokens at minimum (694 for the system prompt, 640 for tool schemas re-sent every turn, ~640 for retrieved knowledge), rising to ~2,900 with twelve turns of history, plus self-hosted GPU seconds for ASR and TTS — with TTS dominating GPU time. A tool-calling turn costs two completions: roughly 4,000–5,800 input tokens and up to 440 output tokens. No dollar rate card is fixed in the source, deliberately, because provider pricing varies — the token counts and GPU-time shapes are the durable, transferable figures. Training compute is a separate, fourth cost this deployment does not itself pay: fine-tuning runs on the programme's CINECA Leonardo HPC allocation, free at point of use. Against a working estimate of 15–30 GPU-hours for a small ASR fine-tune and 40–80 for a single-speaker TTS fine-tune, the actual draw is now known — producing the current Sauti ASR and TTS models consumed roughly 1,000 GPU-hours of the allocation, the single most transferable number here for an adopter deciding whether to seek subsidised HPC or rent commercially.
 
-**Build effort.** The team adapted an existing India-built orchestration stack (VoicERA/Pipecat) rather than building one from scratch, which saved substantial integration time on the orchestration layer itself — but customising it for Kenyan Kiswahili-English code-switching and local telephony conditions required separately-budgeted engineering work, not a configuration change. Team composition: a research engineer (technical/architecture), a programme lead (development, deployment, partner engagement), and a legal/documentation lead (governance) — the original single named point of contact was, by the team's own live correction, not able to answer most operational questions; day-to-day accountability sits with these three instead.
+**Build effort.** The team adapted VoicERA — an existing voice-agent SDK built for the Indian deployment under the same trilateral partnership — into what is now the African Voice SDK, rather than building orchestration from scratch. In the research engineer's own words, this "saved lots of time because most of the work was purely integration," but customising it for Kenyan conditions "was a bit hard" — a distinct, separately-budgeted adaptation phase, not a configuration change. Team composition: Betty W. Kyalo (programme development, deployment, partner engagement), Gilbert Kiplangat Korir (engineering), and Mildred Rebecca Namagembe (legal and documentation) hold day-to-day operational accountability. This correction happened live, mid-call — the programme's originally-named point of contact was not present and, by the team's own admission, was not in fact the right person to answer detailed operational or technical questions.
 
-**Downstream adoptions.** None yet — this pathway is itself the first documented case of porting the India-built VoicERA/Pipecat stack to a new geography. The contributing team's own material flags one claim of edge-quantisation techniques from this deployment informing the Indian programme's next cycle, but marks it explicitly unverified and states it should be removed rather than softened if it cannot be confirmed — so it is not included here as a fact.
+**Downstream adoptions.** This pathway is itself downstream of the Indian VoicERA deployment, not yet a source for anything further. A reverse transfer is explicitly anticipated — Crane AI Labs raised the need for a fully local, offline ASR/LLM/TTS variant through the India–Africa exchange programme, in response to unreliable connectivity in parts of Kenya — but this is recorded as an active exploration area, not a shipped capability, and the India-originated telephony and mobile-access approaches already reused here are themselves flagged as untested in the Kenyan context, not settled.
 
 ## The 4×4 Coverage Grid
 
-Density reflects the contributing team's own honest self-assessment, carried through from their structured metadata document, not re-derived independently.
-
 | | Explore | Define | Pilot | Scale |
 |---|---|---|---|---|
-| **Persona** | ● (partial) | ● (partial) | ●● (strong — Unit 6) | ○ (not reached) |
-| **Solution** | ●●● (strong — Units 1, 2) | ●●● (strong — Unit 4) | ●● (partial — Unit 7) | ○ (not reached) |
-| **Institution** | ● (partial — Unit 5) | ○ (weak — Unit 8) | ● (partial) | ● (weak — maintenance unresolved) |
-| **Ecosystem** | ●●● (strong) | ●●● (strong — Unit 3) | ● (partial) | ● (partial) |
+| **Persona** | ●● (Unit 1) | ●●● (Unit 1) | ○ | ○ |
+| **Solution** | ●●● (Units 2, 3) | ●● (Unit 3) | ● (Unit 4) | ○ |
+| **Institution** | ● | ●●● (Units 5, 6) | ○ | ○ |
+| **Ecosystem** | ●●● (Unit 8) | ●● (Unit 7) | ○ | ○ |
 
-**Where this pathway is most useful to another adopter, in the contributing team's own words:** Solution at Explore and Define, and Ecosystem throughout — the architecture-sequencing and cross-region-porting decisions are the strongest transferable material. **Where it is weakest:** anything at Scale (not yet reached), and institutional ownership at Define.
+**Where this pathway is most useful to another adopter, by its own account:** Technology and Ecosystem at Explore, and Persona, Institution, and data governance at Define — the architecture-porting decisions and the four-way accountability split are the strongest transferable material. **Where it is weakest:** everything at Pilot and Scale, neither of which this deployment has reached yet.
 
 ## Gaps
 
-1. How the code-switching ASR/TTS pipeline performs against real, accented, noisy telephony audio — all current speed figures explicitly say nothing about recognition accuracy. *(Solution/Pilot)*
-2. Measured word-error-rate and character-error-rate for code-switched Kiswahili-English speech — recorded by the source as "not started." *(Solution/Pilot)*
-3. Behaviour under concurrent calls, especially given the TTS model's 166-second cold-start — recorded as "not started." *(Solution/Scale)*
-4. What a second, unnamed partner startup's field workflow looks like, and whether the farmer/field-agent persona split confirmed for Hello Tractor holds for it — explicitly left open by the source. *(Persona/Explore)*
-5. Whether the governance sequence Section 3's Institution units describe has actually been completed and cleared by an accountable institution, versus remaining a designed-but-unexecuted process. *(Institution/Define)*
-6. Who is the data controller and who is the processor under the Kenya Data Protection Act 2019 for target-user voice data — the open question is this allocation, not model-ownership attribution, which is already settled (MsingiAI). *(Institution/Define)*
-7. Who maintains the SDK after the programme's contracts and compute allocation end in November/December 2026 — named by the source as the most common silent failure mode for this kind of deployment, and explicitly unresolved. *(Institution/Scale)*
+1. How the code-switching ASR/TTS pipeline performs against real, accented, noisy telephony audio, rather than the clean machine-generated audio used for the August 2026 latency benchmark — a speed figure, not a recognition-accuracy figure. *(Solution/Pilot)*
+2. Measured word-error-rate and character-error-rate for code-switched Kiswahili-English speech — recorded by the source as "not started." Without it, code-switching is a described engineering fix, not a validated capability. *(Solution/Pilot)*
+3. How the system behaves under concurrent calls, especially given the TTS model's 166-second cold start — load and concurrency testing recorded as "not started," the exact scenario the warm-pool decision in Unit 4 is meant to plan for. *(Solution/Scale)*
+4. What the second, unnamed partner startup's field workflow actually looks like, and whether the farmer/field-agent persona split confirmed for Hello Tractor holds for it — explicitly left open ("a little different," "yet to be shared") in the same conversation that mapped Hello Tractor's workflow in detail. *(Persona/Define)*
+5. Whether the governance sequence Unit 6 describes has actually been completed and approved by Crane AI Labs, or remains a designed-but-unexecuted process — the source describes what should happen before collection, not that it has happened. *(Institution/Define)*
+6. Which organisation is the data controller and which is the processor under the Kenya Data Protection Act 2019 for target-user voice data, and whether that allocation is recorded in an executed agreement — model ownership (MsingiAI) is settled; this legal allocation is a separate, still-open determination. *(Institution/Define)*
+7. What live per-call cost this deployment has actually incurred once telephony and GPU usage are billed against real call volume — no real invoiced cost exists yet, since no live target-user calls have occurred; the source deliberately reports only token/GPU-time shapes, not a rate card. *(Solution/Pilot)*
+8. The size and end date of the CINECA Leonardo allocation, and what access community contributors retain once it ends — not recorded; every contract in the programme concludes at the end of 2026, and the source treats this as unresolved. *(Ecosystem/Scale)*
 
 # 3. Micro-Innovations
 
+## Persona
+
+**1. The end user is a live variable across partners, not a one-time scoping decision**
+- Dimension: Persona
+- Stage: Define
+- Type: Strategic Decision
+- Decision: Track who actually speaks to the voice agent as something confirmed per partner integration, rather than fixed once at programme scoping — and design the SDK itself as a feature add-on into an existing platform (some partners integrating on desktop, others mobile), never as a standalone channel the technology team controls.
+- Why: The deployment was originally scoped around the farmer as direct user. By the time of the pathway's working-group call, the team had found the actual first user is often the partner startup integrating the SDK, and one layer further in, a field agent — not the farmer — who speaks to the system on the farmer's behalf in the workflow live today.
+- What this looked like here: In Hello Tractor's workflow, a Nairobi regional office (managers, CEO, CTO, engineers) sits above town-level hub managers, with field agents as the intermediaries who relay alerts to farmers and carry feedback back — without the voice AI feature, this relay happens by field agent alone today. A second, confirmed partner startup's workflow was described in the same call as "a little different" and "yet to be shared," meaning the persona answer for that partner was still genuinely open at the time of writing (see Gap 4).
+- Condition — applies when: An SDK or feature is being integrated into more than one partner's existing workflow, each with its own structure for who relays information to whom.
+- Condition — fails when: A single, standalone deployment with one fixed, already-confirmed direct user — the live-variable framing adds process without a real decision to make.
+
 ## Solution
 
-**1. Invert the sequence: build offline on-device inference first, add telephony second**
-- Dimension: Solution
-- Stage: Explore
-- Type: Strategic Decision
-- Decision: Build offline on-device inference as the first architectural phase; add telephony as a second phase, rather than the telephony-first sequence used in the reference Indian implementations.
-- Alternative considered: Telephony-first, matching the Indian deployments this stack was ported from.
-- Why: In this deployment geography, connectivity is unreliable enough that a network-dependent service fails at the exact moment a user needs it; per-minute telephony cost is a real barrier at scale; and entry-level Android devices can now run quantised models locally.
-- Condition — applies when: Connectivity is unreliable or absent, and users own smartphone-class devices.
-- Condition — fails when: Users hold feature phones without app capability — telephony is then the only channel, and the sequence reverses back to telephony-first.
-
-**2. Adapt the orchestration pattern — do not expect to fork a single repository**
+**2. Code-switching has to be engineered into the ASR/TTS layer, separately from the LLM**
 - Dimension: Solution
 - Stage: Explore
 - Type: Tactical Decision
-- Decision: Adapt the Pipecat-based orchestration pattern and service-factory structure rather than build orchestration from scratch, or assume a single "VoicERA" codebase exists to clone.
-- Alternative considered: Building orchestration in-house; expecting a single forkable repository.
-- Why: There is no single repository — the stack is a name over open components (Pipecat, ULCA, AI4Bharat models). Adopters expecting a clonable repo lose real time discovering this isn't how it works.
-- What this looked like here: Before — an assumption of a forkable stack. After — an adaptation workstream, with the pattern reused and the components rebuilt for the new context.
-- Condition — applies when: Porting any voice stack across regions.
+- Decision: Treat code-switching as a capability that has to be built into the speech models themselves, not assumed to be inherited from an LLM that already handles it.
+- Why: Msingi AI's voice models initially supported only pure Kiswahili. Kenyan callers routinely code-switch between Kiswahili and English within a single sentence — the LLM already handled this natively, but the ASR and TTS layers did not, and the gap surfaced only once real conversational patterns were tested against the ported stack.
+- What this looked like here: The fix went beyond the speech models — a text normaliser for spoken numbers had to be dropped entirely, because a normaliser must assume one output language and breaks the moment a reply mixes two; numbers are now spelled out as words by the language model itself, in whichever language it's speaking in that sentence. The team also found replies came back as long paragraphs rather than short, direct answers, and is fixing this by pulling domain-specific answer conventions directly from Hello Tractor rather than tuning the prompt in isolation. Two further tactical details from the same adaptation pass: the TTS generation seed is now pinned before every call once voice cloning is in use (otherwise consecutive utterances sound like different speakers), and English words inside a Kiswahili reply deliberately carry the cloned reference speaker's Kenyan phonology rather than switching voices mid-sentence — matching how a real bilingual speaker sounds.
+- Condition — applies when: Porting a voice stack to a population that code-switches between languages within a single utterance.
+- Condition — fails when: The target population is genuinely monolingual — a text normaliser is cheaper and the code-switching adaptation work isn't needed.
 
-**3. Telephony integration does not port across regions**
-- Dimension: Ecosystem
-- Stage: Define
-- Type: Failure and Fix
-- Failure: The orchestration pattern's telephony layer expects Plivo-compatible interfaces; the practical Kenyan telephony provider, Africa's Talking, is not Plivo-compatible, so telephony could not be configured out of the box.
-- Fix: A custom serialiser adapting the orchestration pattern to Africa's Talking's interface — the team's own material does not confirm whether this fix is complete, treated here as "not documented in the source."
-- Insight: Orchestration patterns encode the infrastructure assumptions of their region of origin, and telephony is where those assumptions are most deeply buried — porting telephony is a development workstream, not a configuration step.
-- Condition — applies when: Porting any telephony-dependent voice stack across regions.
-
-**4. A plugin architecture is what makes the SDK sector-agnostic — not the agricultural use case itself**
+**3. Two telephony paths, because the local provider doesn't support one**
 - Dimension: Solution
 - Stage: Define
+- Type: Failure and Fix
+- Failure: The orchestration pattern ported from India assumes websocket-capable telephony; the practical Kenyan provider does not expose websocket media, so the streaming channel could not be configured out of the box for the phone line actually used in Kenya today.
+- Fix: The platform now runs two channel implementations side by side — a streaming websocket channel (built, used where providers support it) and a record-then-play webhook channel (functional, but without tool calling, retrieval, or barge-in). Bringing the turn-based webhook channel — the one actually live in Kenya today — to feature parity with the streaming channel is named as the main open engineering item.
+- Insight: An orchestration pattern encodes the infrastructure assumptions of the region it was built in, and telephony is where those assumptions are buried most deeply — porting it across geographies is a development workstream, not a configuration step, and the gap only shows up once a real local provider is wired in.
+- Condition — applies when: Porting a telephony-dependent voice stack to a new region without first confirming the local provider's technical capabilities (websocket support specifically).
+
+**4. Synthesis, not the language model, is where the latency and the cost concentrate**
+- Dimension: Solution
+- Stage: Pilot
 - Type: Strategic Decision
-- Decision: Build a standardised extension interface allowing any ASR, TTS, or LLM component to be registered for any language or domain, rather than hard-coding agriculture into the platform.
-- Why: Agriculture is not hard-coded into this system — it is the first populated slot. The system is sector-agnostic only to the extent the interface itself guarantees it, which makes the interface specification, not the agricultural implementation, the actually reusable asset.
-- Condition — applies when: Building infrastructure intended for reuse across sectors or languages.
-- Condition — fails when: A single-purpose deployment with no reuse intent — the abstraction cost isn't repaid.
+- Decision: Target speed and cost optimisation at the text-to-speech stage first, and treat scale-to-zero versus a warm GPU pool as a deliberate, explicit decision rather than something inherited silently from the pilot's default configuration.
+- Why: Measured 7 August 2026 on the web channel, warm containers, nine samples: within a full 6.28-second turn, TTS synthesis took 3.92 seconds against 1.25 for LLM generation and 0.49 for speech-to-text — roughly two-thirds of the turn, the opposite of where latency attention usually goes. The TTS model itself is ~9.5GB and takes 166 seconds to load into a cold container — named explicitly as the single most important cost decision at production scale: scale-to-zero (the current default) minimises idle cost but makes the first call after an idle period feel broken, while a warm pool removes that at continuous cost.
+- What this looked like here: Tool schemas add roughly 640 input tokens to every turn regardless of whether a tool is plausibly needed — out of a ~1,970-token per-turn floor — making schema trimming a cheap, compounding lever alongside reply-length caps.
+- Condition — applies when: Running a self-hosted, neural TTS stage in a cascaded voice pipeline, where synthesis time is not yet instrumented separately from the rest of the turn.
+- Condition — fails when: Latency figures haven't been measured stage-by-stage yet — optimising before instrumenting risks targeting the wrong stage entirely, as this deployment's own figures show.
 
 ## Institution
 
-**5. Where no state institution owns the deployment, trust has to be borrowed**
+**5. Programme oversight, cooperation structure, legal accountability, and model ownership are four separate roles**
 - Dimension: Institution
-- Stage: Explore
+- Stage: Define
 - Type: Strategic Decision
-- Decision: Anchor operational trust in Hello Tractor's existing commercial relationship with its own agent network, rather than seeking a single government owner on the model the Indian state-government deployments used.
-- Alternative considered: Seeking a single government institutional owner, as in MahaVISTAAR.
-- Why: No equivalent single institutional champion exists in this context. The trilateral cooperation framework and UNDP provide legitimacy, but not the day-to-day relationship that actually gets a field agent to pick up and use the tool.
-- Condition — applies when: No state institution owns the deployment, and a commercial, cooperative, or community partner already holds the user relationship.
-- Note: The contributing team marks this explicitly as a working hypothesis, not a proven result — "not yet demonstrable" in their own words. Carried through here with that same caveat rather than presented as a settled finding.
+- Decision: Establish the accountable institution, the cooperation structure it sits within, the legal data controller/processor, and the model owner as four distinct, separately-resolved determinations, rather than treating "who's in the room" as settling all four at once.
+- Why: Programme accountability (deliverables, approvals, internal governance) sits with Crane AI Labs, which leads the pathway end to end. The cooperation structure is the UNDP AI Hub and the Italy–India–Kenya trilateral framework — the AI Hub is not led by Crane; Crane runs one pathway within it. Model ownership sits with MsingiAI, which built the Sauti ASR and TTS models — attributing them to Crane, the implementing partner, would misrepresent where the work was done. Legal accountability under Kenyan law — who is the controller and who is the processor — is a separate determination and, as of this document, not yet settled (see Gap 6).
+- What this looked like here: The programme's originally-named point of contact was not present on the working-group call and, by the team's own live correction, was not in fact the right person to answer detailed operational or technical questions — day-to-day accountability sits with three other named consultants instead. Conflating these four roles is what caused that confusion in the first place, before the interview even reached technical questions.
+- Condition — applies when: A deployment sits inside a multi-party cooperation framework and no single organisation obviously holds all four roles at once.
 
-**8. A public good needs a maintainer with a durable mandate — not just a technical path**
+**6. Data governance is sequenced before collection, and enforced by configuration, not policy alone**
 - Dimension: Institution
-- Stage: Scale
+- Stage: Define
 - Type: Strategic Decision
-- Decision: Treat "who maintains this SDK in three years, and are they in the room now" as a governance and funding question to be resolved deliberately, not an afterthought to the technical build.
-- Why: An SDK becomes a genuine Digital Public Good only when someone reviews contributions, ships security fixes, updates models, and answers issues years out. The team's own honest position: every contract in the programme concludes at the end of 2026, and the supporting compute allocation expires in November 2026. The technical path to sector-agnosticism is tractable; who owns the SDK in 2028 is not answered.
-- Condition — applies when: Building any infrastructure intended as a public good, particularly under grant or programme funding with a fixed end date.
-
-## Persona
-
-**6. Dialect and code-switching, not the base language, is the actual low-resource problem**
-- Dimension: Persona
-- Stage: Pilot
-- Type: Failure and Fix
-- Failure: A model performing well on standard Swahili still risked failing real users, because Swahili itself is not low-resource in the conventional sense (substantial digital presence, broadcast media, a large speaker base) — what is genuinely low-resource is Kenyan conversational Swahili and its regional variants, including Sheng in Nairobi, coastal, and northern variants.
-- Fix: Not fully documented in the source (the specific failure mode and which variants were affected are marked as needing confirmation from the team) — but the insight itself, and the direction of the fix (test against regional/register variation, not just the standard language), is stated plainly.
-- Insight: "Low-resource" is a property of the specific register and dialect a real user speaks, not of the named language as a category — a model can clear a standard-language benchmark and still fail the actual deployment population.
-- Condition — applies when: Deploying in any language with significant regional or register variation, particularly where an urban contact variety exists alongside the standard form.
+- Decision: Establish accountability, lawful basis, consent evidence, data-flow mapping, security, and incident handling before any target-user voice is collected — and keep the deployment in an enforced simulation mode, using public, synthetic, or test data only, until that sequence is complete.
+- Why: In Mildred Namagembe's own framing, "retrofitting community consent onto a corpus already collected is not something that can be done honestly after the fact, so the record is opened at the start." The interim no-collection rule is enforced by deployment configuration, not just by policy — partner endpoint access is a deployment-level decision that cannot be switched on by editing an agent in the dashboard, so the gate is technical, not just procedural.
+- What this looked like here: Consent is layered by use rather than treated as a single event — recorded separately for recording, for model training or open release, for cross-border processing, for use of a reference voice in cloning, and for any future speaker-recognition function, since the caller and the person who supplies the reference voice for cloning may be different people requiring different notices. The data flow itself is mapped as a multi-provider, multi-jurisdiction route (telephony, hosting, the agent database, the vector store, the embedding provider, hosted speech services, the external LLM service, any partner API) rather than described as a single hosting location, since a single conversational turn can place transcript text with more than one external provider, in different jurisdictions, within seconds. Data minimisation is enforced inside the versioned system prompt itself — agents are instructed never to solicit mobile-money PINs, national ID numbers, or bank details — because once such data is elicited in a transcript, it already exists in the log and any downstream provider; preventing the question is more reliable than filtering the answer afterward.
+- Condition — applies when: A voice pipeline is cascaded across multiple external providers and hasn't yet processed real target-user data.
+- Condition — fails when: Collection has already begun without this sequence — the source is explicit that consent cannot be honestly retrofitted onto a corpus already gathered.
 
 ## Ecosystem
 
-**7. Staged testing runs through the partner relationship, not directly to end users**
+**7. Shared compute access is a two-step, finite, time-bounded benefit — not an evergreen resource**
 - Dimension: Ecosystem
 - Stage: Define
-- Type: Playbook
-- Playbook: Internal development team → partner staff (Hello Tractor hub managers) → booking agents (field users) → farmers (end users), with a named gate criterion required before advancing to the next stage.
-- Note: The sequence itself is intuitive; the actual discipline is not advancing until a criterion is genuinely met. The specific gate criteria are not documented in the source material reviewed. The team notes this independently mirrors the staged institutional-testing chain used in the Indian deployments (see MahaVISTAAR and Voice AI for Inclusion), arrived at separately rather than copied.
-- Condition — applies when: An institutional or commercial partner sits between the technology and the end user — common wherever trust is borrowed rather than institutionally owned (see Unit 5).
+- Type: Strategic Decision
+- Decision: Treat the programme's shared HPC allocation as requiring a specific two-step access process, and plan around it as shared and time-bounded rather than as a standing resource.
+- Why: The clearest material asset the trilateral cooperation delivers to this pathway is not a document or a convening — it's GPU time. Fine-tuning runs on CINECA's Leonardo cluster under a shared programme allocation, free at point of use, but access requires a personal HPC account first, then association with the project allocation by the AI Hub's technical focal point — an account without that association carries zero budget, recorded as the step teams most often miss.
+- What this looked like here: Node-hours are drawn from one shared pool and consumed by whoever runs first, making allocation planning an ecosystem-governance question rather than a purely engineering one. The arrangement is also time-bounded by the programme itself — every contract concludes at the end of 2026, and the source material does not record what access community contributors retain once the allocation ends (see Gap 8).
+- Condition — applies when: A deployment depends on a shared, programme-funded compute allocation rather than commercially procured infrastructure.
+
+**8. Reverse-transferred learnings are treated as untested, not settled**
+- Dimension: Ecosystem
+- Stage: Explore
+- Type: Strategic Decision
+- Decision: Reuse cross-geography learnings from the source deployment while explicitly flagging them as unbenchmarked in the new context, rather than presenting a successful transfer as proof it will work again.
+- Why: Telephony and mobile-access approaches developed in the Indian VoicERA deployment were passed to the African team and are described as having worked well in India — but the team was explicit that "some of the things which are unique to India might be different in Africa," treating this as still to be benchmarked once the Kenyan deployment goes live, not as a settled transfer.
+- What this looked like here: The requirement for a fully local, offline ASR/LLM/TTS variant — running without a telephony layer at all, for areas with no reliable internet — surfaced through this same exchange programme, raised by Crane AI Labs in response to Kenyan field conditions rather than originating from the core technology team's own roadmap. It's recorded as an active exploration area, not a shipped capability.
+- Condition — applies when: Reusing a technical or process learning from a deployment in a different geography or infrastructure context.
+- Condition — fails when: The learning has already been benchmarked against the new context's own conditions — at that point it's a confirmed finding, not a flagged assumption.
 
 # 4. Toolkits and Playbooks
 
 | # | Asset | Type | Reuse condition |
 |---|---|---|---|
-| 7 | Staged testing sequence (internal team → partner staff → field agents → end users, gated) | Playbook | Applies wherever an institutional or commercial partner sits between the technology and the end user. |
-| — | African Voice AI SDK — Apache 2.0 plugin interface for ASR/TTS/LLM components (repository URL and interface specification not documented in the source reviewed) | Toolkit Asset | Applies when deploying voice AI in a language with existing or buildable ASR/TTS components and wanting to avoid rebuilding orchestration from scratch; does not apply for a telephony-only deployment with reliable connectivity where a bundled commercial provider would be faster. |
+| — | African Voice SDK / Voicera Africa platform — the customised VoicERA/Pipecat-derived stack (agent configuration, ASR/LLM/TTS orchestration, RAG, sandboxed tool runner) | Toolkit Asset | Adding a new deployment is a configuration and knowledge-base exercise once the underlying stack itself has been adapted for the target region — not a new engineering cycle. |
+| — | Voicera Africa technical & cost architecture document (11 Aug 2026) | Toolkit Asset | Dated system architecture, model stack, and cost breakdown for partner and funder technical review; token/GPU-time shapes rather than a dollar rate card, by design. |
+| — | CINECA fine-tuning pipeline documentation | Toolkit Asset | End-to-end guide for fine-tuning African-language ASR/TTS models on the Leonardo HPC cluster (account and allocation access, data preparation, evaluation by dialect slice, on-device export) — written so a contributor doesn't need the original project team. |
+| — | Kenya governance instrument set (in development) | Toolkit Asset | Participant information sheet, layered consent forms, data governance register, DPIA screening, breach notification, and partner compliance declaration — not yet complete or available for reuse; approval runs through Crane AI Labs programme sign-off, with the completed set delivered to the UNDP AI Hub on completion. The transferable part today is the sequence in Unit 6, not the templates themselves. |
+| — | 4×4 grid-mapped interview questionnaire | Toolkit Asset | The question set used to run this pathway's own working-group interview, sequenced broad-to-specific across Persona, Technology, Institution, and Ecosystem — reusable for any future pathway interview. |
 
 # 6. Retrieval Guide
 
-*"Should we build offline-first or telephony-first?"* → Unit 1
+*"Who is our actual end user — the farmer, or the partner's field agent?"* → Unit 1
 
-*"Can we reuse an existing voice orchestration stack instead of building one?"* → Unit 2, Unit 3
+*"Our LLM already handles code-switching — do we still need to worry about it?"* → Unit 2
 
-*"Why won't our telephony provider connect after porting a voice stack?"* → Unit 3
+*"Our telephony provider doesn't support our voice stack's expected protocol"* → Unit 3
 
-*"How do we make one SDK work across sectors or languages?"* → Unit 4
+*"Where should we focus latency and cost optimisation in a voice pipeline?"* → Unit 4
 
-*"Who should institutionally own this deployment if there's no single government partner?"* → Unit 5
+*"Who should be accountable for what in a multi-party cooperation deployment?"* → Unit 5
 
-*"Our model tests well on the standard language but real users still struggle"* → Unit 6
+*"How do we sequence data governance before we've collected any real user data?"* → Unit 6
 
-*"How should we sequence testing before real end users touch the system?"* → Unit 7
+*"How do we plan around a shared, programme-funded compute allocation?"* → Unit 7
 
-*"What happens to this system after the grant or programme funding ends?"* → Unit 8
+*"Can we trust a technical or process learning transferred from another geography?"* → Unit 8
 
 ---
 
@@ -176,10 +182,4 @@ Density reflects the contributing team's own honest self-assessment, carried thr
 
 | Source file | Covers | Notes |
 |---|---|---|
-| African Voice AI Pathway.docx (full narrative pathway document, as of 17 Aug 2026) | Section 1 (identity, scale, cost, dates); Section 2 (cost anchor, build effort); all of Section 3; Gaps 1–7 | Primary source — a complete, near-publication-ready narrative pathway document already organised by dimension. |
-| Context shared/03_Metadata_Units.md.docx (structured metadata + tagged units, Draft v0.1, Aug 2026) | Section 1 (stage-reached, contributors, dimensions-covered); Section 2 coverage grid (verbatim from the source's own Part B); Units 1–8 (tag IDs, condition tags); Section 6 retrieval guide | Primary source for unit tagging — pre-classified by the contributing team into Dimension/Stage/Type codes, translated here into this corpus's exact vocabulary. Several sub-fields (before→after outcomes, specific failure details, gate criteria) are marked `⟨NEEDS⟩` in the source and carried through here as "not documented in the source" rather than invented. Unit E-Sc-St-011 ("reverse knowledge transfer") is excluded entirely per the source's own explicit instruction not to state it unless independently verified. |
-| Context shared/02_Toolkit.md.docx (technical asset / toolkit document, Draft v0.1, Aug 2026) | Section 4 (Toolkit Asset entry) | Confirms only — nearly every implementation detail (repository URL, interface spec, benchmarks, device specs) is marked `⟨NEEDS⟩` in this source; only the asset's existence, licence, and applies-when/does-not-apply-when framing were usable without fabrication. |
-| Context shared/01_Playbook.md.docx | Cross-checked against Section 3's framing and structure | Confirms only — largely overlaps with the full pathway document and structured metadata above. |
-| Context shared/AI Policy and Data Governance Contribution - Kenya (1).pdf (Mildred Rebecca Namagembe) | Institution/Define framing (Gap 6); governance-sequencing context throughout | Primary source for the data-governance and consent material referenced in the full pathway document; not independently re-read beyond what the pathway document already incorporates. |
-| Context shared/Voicera_Africa__Technical_and_Cost_Architecture.pdf (11 Aug 2026) | Section 1 (scale/impact latency figures); Section 2 (cost anchor detail) | Primary source for the dated cost and latency figures, as incorporated into the full pathway document. |
-| African Voice AI - Interview questions.docx | Background only | Interview question guide; content is already reflected in the full pathway document's narrative, not separately re-extracted. |
+| African Voice AI Pathway.docx.pdf (full narrative pathway document, dated 17 Aug 2026) | All sections — Section 1 (identity, scale, cost, dates); Section 2 (cost anchor, build effort, downstream framing); all 8 units in Section 3; Gaps 1–8; Section 4 (reusable assets, from the document's own Annexure 3); Section 2's coverage grid (grounded in the document's own Annexure 2 stage-navigation table) | Primary source, superseding earlier draft material used for a prior version of this pathway (African Voice AI Pathway.docx + 03_Metadata_Units.md.docx, both marked with unresolved `⟨NEEDS⟩` placeholders). This version is a complete, polished document with named quotes (Betty Kyallo, Gilbert Kiplangat Korir, Mildred Rebecca Namagembe), a resolved persona finding, a full institution/data-governance/ecosystem/cost treatment, a 10-item gaps table, and its own stage self-assessment (Explore-to-Define) — read in full and used as the authoritative source for this rewrite. Two claims present in the earlier, thinner source material are not carried forward here because this newer, more complete document does not corroborate them: an "offline-first, on-device inference as the first architectural phase" sequencing claim (the offline/edge variant is explicitly described here as an active exploration area, not yet built), and an unverified claim about this deployment informing the Indian programme's next cycle via edge-quantisation techniques. |
